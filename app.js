@@ -23,12 +23,12 @@ let filling = false;
 
 function stopPainting(){
     painting = false;
-    console.log("stopPainting!")
+    //console.log("stopPainting!")
 }
 
 function startPainting(){
     painting = true;
-    console.log("startPainting!")
+    //console.log("startPainting!")
 }
 
 function onMouseMove(event){
@@ -36,14 +36,14 @@ function onMouseMove(event){
     const y = event.offsetY;
     if(!painting){
         ctx.beginPath();
-        console.log(`ctx.beginPath()`)
+        //console.log(`ctx.beginPath()`)
         ctx.moveTo(x, y);
         //console.log(`ctx.moveTo(${x}, ${y})`)
     } else{
         ctx.lineTo(x, y);
-        console.log(`ctx.lineTo((${x}, ${y}))`)
+        //console.log(`ctx.lineTo((${x}, ${y}))`)
         ctx.stroke();
-        console.log(`ctx.stroke((${x}, ${y}))`)
+        //console.log(`ctx.stroke((${x}, ${y}))`)
     }
 }
 
@@ -78,6 +78,14 @@ function handleCM(event){
     event.preventDefault();
 }
 
+function handleSaveClick(){
+    const image = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = image;
+    link.download = "PaintJS[EXPORT]🎨";
+    link.click();
+}
+
 if(canvas){
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mousedown", startPainting);
@@ -95,4 +103,8 @@ if(range){
 
 if(mode){
     mode.addEventListener("click", handleModeClick);
+}
+
+if(saveBtn){
+    saveBtn.addEventListener("click", handleSaveClick);
 }
